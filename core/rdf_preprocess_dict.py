@@ -75,19 +75,20 @@ def add_class_from_dbpedia(subject_uri):
 def data_supplier(subject_uri):
 
     supply_list = []
-    if 'http://dbpedia.org/resource/' in subject_uri:
-        supply_list = add_category_from_dbpeida(subject_uri)
+    # Disable online SPARQL queries to avoid rate limiting
+    # if 'http://dbpedia.org/resource/' in subject_uri:
+    #     supply_list = add_category_from_dbpeida(subject_uri)
     #elif 'http://dbpedia.org/class/yago/' in subject_uri:
     #    supply_list = add_class_from_dbpedia(subject_uri)
-    else:
-        pass
+    # else:
+    #     pass
     
     return supply_list
 
 def form_object_doc_list(filepath):
 
     g = rdflib.Graph()
-    g.load(filepath, format='nt')
+    g.parse(filepath, format='nt')
 
     object_doc_list = []
 

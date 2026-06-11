@@ -18,7 +18,7 @@ predicate_set_lm = set()
 def form_predicate_doc_list(filepath):
     #usr rdflib to construct Graph and extract predicate
     g = rdflib.Graph()
-    g.load(filepath, format='nt')
+    g.parse(filepath, format='nt')
 
     #predicate list in current file
     predicate_doc_list = []
@@ -73,7 +73,7 @@ def predicate_extract(triple):
         extract_file.write(triple)
     
     g = rdflib.Graph()
-    g.load(os.path.join(rdf_preprocess_dict.coredir, 'predicate_extract_temp.nt'), format='nt')
+    g.parse(os.path.join(rdf_preprocess_dict.coredir, 'predicate_extract_temp.nt'), format='nt')
 
     #rdf preprocesser
     for pred in g.predicates():
