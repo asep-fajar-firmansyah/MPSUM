@@ -22,10 +22,12 @@ lda_train.constructor()
 #load object dictionary 
 object_corpus_list_db = rdf_preprocess_object.retrieve_object_corpus_list('db')
 object_corpus_list_lm = rdf_preprocess_object.retrieve_object_corpus_list('lm')
+object_corpus_list_faces = rdf_preprocess_object.retrieve_object_corpus_list('faces')
 
 #load corpus_word
 corpus_word_db = lda_train.retrieve_corpus_word('db')
 corpus_word_lm = lda_train.retrieve_corpus_word('lm')
+corpus_word_faces = lda_train.retrieve_corpus_word('faces')
 
 #rank triples for each file
 def rank_rdf_triples(num, object_corpus_list, kb_path, corpus_word):
@@ -184,6 +186,12 @@ def entity_summarization(kb, kb_name, tfidf_flag):
         entity_ids = rdf_preprocess_dict.lmdb_entity_ids
         object_corpus_list = object_corpus_list_lm
         corpus_word = corpus_word_lm
+    elif kb == 'faces':
+        num = 50
+        kb_path = rdf_preprocess_dict.faces_nt_path
+        entity_ids = rdf_preprocess_dict.faces_entity_ids
+        object_corpus_list = object_corpus_list_faces
+        corpus_word = corpus_word_faces
     else:
         return 
 
@@ -199,6 +207,7 @@ if __name__ == '__main__':
 
     entity_summarization('dbpedia', 'db', False)
     entity_summarization('lmdb', 'lm', False)
+    entity_summarization('faces', 'faces', False)
       
     #flush buffer
     if os.path.exists(os.path.join(rdf_preprocess_dict.coredir, 'predicate_extract_temp.nt')):

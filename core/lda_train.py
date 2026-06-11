@@ -35,6 +35,8 @@ def apply_lda_model(kb_name, num, n_top_words):
         model = lda.LDA(n_topics=n_topics, n_iter=1500, alpha=5/n_topics, refresh=100)
     elif kb_name == 'lm':
         model = lda.LDA(n_topics=n_topics, n_iter=1500, alpha=2/n_topics, eta=50/n_topics, refresh=100)
+    elif kb_name == 'faces':
+        model = lda.LDA(n_topics=n_topics, n_iter=1500, alpha=5/n_topics, refresh=100)
     else:
         return 
     model.fit(doc_term_matrix)  
@@ -71,9 +73,11 @@ def constructor():
     n_topic_words = 3000
     form_and_store_corpus_word('db', 125, n_topic_words)
     form_and_store_corpus_word('lm', 50, n_topic_words)
+    form_and_store_corpus_word('faces', 50, n_topic_words)
 
 if __name__ == '__main__':
 
     n_topic_words = 3000
     form_and_store_corpus_word('db', 125, n_topic_words)
     form_and_store_corpus_word('lm', 50, n_topic_words)
+    form_and_store_corpus_word('faces', 50, n_topic_words)

@@ -11,6 +11,7 @@ rootdir = os.path.normpath(os.path.dirname(os.path.dirname(__file__))) #root pat
 coredir = os.path.join(rootdir, 'core') #core path 
 dbpediadir = os.path.join(rootdir, 'datasets', 'ESBM_benchmark_v1.2', 'dbpedia_data') #dbpedia path 
 lmdbdir = os.path.join(rootdir, 'datasets', 'ESBM_benchmark_v1.2', 'lmdb_data') #lmdb path
+facesdir = os.path.join(rootdir, 'datasets', 'FACES', 'faces_data') #faces path
 
 #paths in dbpedia (1-100, 141-165)
 dbpedia_nt_path = []
@@ -24,10 +25,18 @@ lmdb_nt_path = []
 lmdb_entity_ids = []
 for i in list(range(101, 141)) + list(range(166, 176)):
     lmdb_nt_path.append(os.path.join(lmdbdir,str(i),str(i)+'_desc.nt'))
-    lmdb_entity_ids.append(i) 
+    lmdb_entity_ids.append(i)
+
+#paths in faces (1-50)
+faces_nt_path = []
+faces_entity_ids = []
+for i in range(1, 51):
+    faces_nt_path.append(os.path.join(facesdir,str(i),str(i)+'_desc.nt'))
+    faces_entity_ids.append(i)
 
 object_corpus_list_db = []
 object_corpus_list_lm = []
+object_corpus_list_faces = []
 
 #extract object
 def object_extract(obj):
@@ -117,6 +126,7 @@ def constructor():
 
     form_and_store_object_corpus_list('db', dbpedia_nt_path, 0, 125)
     form_and_store_object_corpus_list('lm', lmdb_nt_path, 0, 50)
+    form_and_store_object_corpus_list('faces', faces_nt_path, 0, 50)
 
 if __name__ == '__main__': 
 

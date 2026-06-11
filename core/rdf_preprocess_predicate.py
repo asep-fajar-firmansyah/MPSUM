@@ -9,10 +9,12 @@ import rdf_preprocess_dict
 #predicate list in corpus
 predicate_corpus_list_db = []
 predicate_corpus_list_lm = []
+predicate_corpus_list_faces = []
 
 #predicate set
 predicate_set_db = set()
 predicate_set_lm = set()
+predicate_set_faces = set()
 
 #construct predicate_doc_list
 def form_predicate_doc_list(filepath):
@@ -94,9 +96,11 @@ def constructor():
 
     form_predicate_corpus_list(predicate_corpus_list_db, rdf_preprocess_dict.dbpedia_nt_path, 125)
     form_predicate_corpus_list(predicate_corpus_list_lm, rdf_preprocess_dict.lmdb_nt_path, 50)
+    form_predicate_corpus_list(predicate_corpus_list_faces, rdf_preprocess_dict.faces_nt_path, 50)
 
     form_and_store_predicate_set(predicate_corpus_list_db, predicate_set_db, 'db') 
     form_and_store_predicate_set(predicate_corpus_list_lm, predicate_set_lm, 'lm')
+    form_and_store_predicate_set(predicate_corpus_list_faces, predicate_set_faces, 'faces')
 
 def retrieve_object_corpus_list(kb_name):
 
