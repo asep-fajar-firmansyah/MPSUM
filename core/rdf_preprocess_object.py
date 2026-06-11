@@ -5,6 +5,7 @@ import rdf_preprocess_dict
 
 object_corpus_list_db = []
 object_corpus_list_lm = []
+object_corpus_list_faces = []
 
 def retrieve_object_corpus_list(kb_name):
     with open(os.path.join(rdf_preprocess_dict.coredir,'object_corpus_list_'+kb_name+'.json'), 'r', encoding='utf-8') as f:
@@ -33,6 +34,7 @@ def constructor():
 
     output_object_corpus_list('db', retrieve_object_corpus_list('db'))             
     output_object_corpus_list('lm', retrieve_object_corpus_list('lm'))
+    output_object_corpus_list('faces', retrieve_object_corpus_list('faces'))
 
 if __name__ == '__main__':
 
