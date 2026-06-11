@@ -9,8 +9,8 @@ import string
 # main path 
 rootdir = os.path.normpath(os.path.dirname(os.path.dirname(__file__))) #root path
 coredir = os.path.join(rootdir, 'core') #core path 
-dbpediadir = os.path.join(rootdir, 'dbpedia') #dbpedia path 
-lmdbdir = os.path.join(rootdir, 'lmdb') #lmdb path
+dbpediadir = os.path.join(rootdir, 'datasets', 'ESBM_benchmark_v1.2', 'dbpedia_data') #dbpedia path 
+lmdbdir = os.path.join(rootdir, 'datasets', 'ESBM_benchmark_v1.2', 'lmdb_data') #lmdb path
 
 #paths in dbpedia (1-100, 141-165)
 dbpedia_nt_path = []
