@@ -12,15 +12,19 @@ coredir = os.path.join(rootdir, 'core') #core path
 dbpediadir = os.path.join(rootdir, 'dbpedia') #dbpedia path 
 lmdbdir = os.path.join(rootdir, 'lmdb') #lmdb path
 
-#paths in dbpedia
+#paths in dbpedia (1-100, 141-165)
 dbpedia_nt_path = []
-for i in range(1, 101):
-    dbpedia_nt_path.append(os.path.join(dbpediadir,str(i),str(i)+'_desc.nt')) 
+dbpedia_entity_ids = []
+for i in list(range(1, 101)) + list(range(141, 166)):
+    dbpedia_nt_path.append(os.path.join(dbpediadir,str(i),str(i)+'_desc.nt'))
+    dbpedia_entity_ids.append(i)
 
-#paths in lmdb
+#paths in lmdb (101-140, 166-175)
 lmdb_nt_path = []
-for i in range(101, 141):
-    lmdb_nt_path.append(os.path.join(lmdbdir,str(i),str(i)+'_desc.nt')) 
+lmdb_entity_ids = []
+for i in list(range(101, 141)) + list(range(166, 176)):
+    lmdb_nt_path.append(os.path.join(lmdbdir,str(i),str(i)+'_desc.nt'))
+    lmdb_entity_ids.append(i) 
 
 object_corpus_list_db = []
 object_corpus_list_lm = []

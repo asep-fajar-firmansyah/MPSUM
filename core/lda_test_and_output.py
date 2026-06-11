@@ -127,27 +127,71 @@ def construct_es_lda_output(kb_name, num, base_num, matched_total_lines, tfidf_f
         for line in matched_total_lines:
             input_file.write(line+'\n')
 
+#construct dirs for es_lda_output with entity IDs
+def make_es_lda_output_subdir_all(kb_name, entity_ids, tfidf_flag):
+
+    path_add = ''
+    if tfidf_flag == True:
+        path_add = '_with_tfidf'
+
+    if not os.path.exists(os.path.join(rdf_preprocess_dict.rootdir, 'MPSUM_output'+path_add)):
+        os.mkdir(os.path.join(rdf_preprocess_dict.rootdir, 'MPSUM_output'+path_add))
+    es_lda_output_dir_path = os.path.join(rdf_preprocess_dict.rootdir, 'MPSUM_output'+path_add)
+    
+    if not os.path.exists(os.path.join(es_lda_output_dir_path, kb_name)):
+        os.mkdir(os.path.join(es_lda_output_dir_path, kb_name))
+        
+    es_lda_output_dir_path_kb = os.path.join(es_lda_output_dir_path, kb_name)
+
+    for entity_id in entity_ids:
+        if not os.path.exists(os.path.join(es_lda_output_dir_path_kb, str(entity_id))):
+            os.mkdir(os.path.join(es_lda_output_dir_path_kb, str(entity_id)))
+
+    return
+
+def construct_es_lda_output_all(kb_name, entity_id, matched_total_lines, tfidf_flag):
+
+    path_add = ''
+    if tfidf_flag == True:
+        path_add = '_with_tfidf'
+
+    es_lda_output_dir_path_kb = os.path.join(rdf_preprocess_dict.rootdir, 'MPSUM_output'+path_add, kb_name)
+
+    with open(os.path.join(es_lda_output_dir_path_kb, str(entity_id), str(entity_id)+'_top5.nt'), 'w+', encoding=u'utf-8') as input_file:
+        for i in range(min(5, len(matched_total_lines))):
+            input_file.write(matched_total_lines[i]+'\n')
+
+    with open(os.path.join(es_lda_output_dir_path_kb, str(entity_id), str(entity_id)+'_top10.nt'), 'w+', encoding=u'utf-8') as input_file:
+        for i in range(min(10, len(matched_total_lines))):
+            input_file.write(matched_total_lines[i]+'\n')
+
+    with open(os.path.join(es_lda_output_dir_path_kb, str(entity_id), str(entity_id)+'_rank.nt'), 'w+', encoding=u'utf-8') as input_file:
+        for line in matched_total_lines:
+            input_file.write(line+'\n')
+
 #construct results for knowlege base:dbpedia, lmdb
 def entity_summarization(kb, kb_name, tfidf_flag):
 
     if kb == 'dbpedia':
-        num, base_num = 100, 0
+        num = 125
         kb_path = rdf_preprocess_dict.dbpedia_nt_path
+        entity_ids = rdf_preprocess_dict.dbpedia_entity_ids
         object_corpus_list = object_corpus_list_db
         corpus_word = corpus_word_db
     elif kb == 'lmdb':
-        num, base_num = 40, 100
+        num = 50
         kb_path = rdf_preprocess_dict.lmdb_nt_path
+        entity_ids = rdf_preprocess_dict.lmdb_entity_ids
         object_corpus_list = object_corpus_list_lm
         corpus_word = corpus_word_lm
     else:
         return 
 
-    make_es_lda_output_subdir(kb, num, base_num, tfidf_flag)
+    make_es_lda_output_subdir_all(kb, entity_ids, tfidf_flag)
 
     for i in range(num):
         matched_total_lines = rank_rdf_triples(i, object_corpus_list, kb_path, corpus_word)
-        construct_es_lda_output(kb, i+1, base_num, matched_total_lines, tfidf_flag)
+        construct_es_lda_output_all(kb, entity_ids[i], matched_total_lines, tfidf_flag)
 
     return 
 
