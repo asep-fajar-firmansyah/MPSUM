@@ -114,8 +114,8 @@ def form_and_store_object_corpus_list(kb_name='db', kb_nt_path_list=dbpedia_nt_p
 
 def constructor():
 
-    form_and_store_object_corpus_list()
-    form_and_store_object_corpus_list('lm', lmdb_nt_path, 100, 40)
+    form_and_store_object_corpus_list('db', dbpedia_nt_path, 0, 125)
+    form_and_store_object_corpus_list('lm', lmdb_nt_path, 0, 50)
 
 if __name__ == '__main__': 
 
